@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: envio-indexer
+networks:
+- id: 50312
+  rpc: https://dream-rpc.somnia.network/
+  start_block: 179115894
+  contracts:
+  - name: TokenFactory
+    address:
+    - 0x2284Cff73d2384fDF91E84060d40A41581E642Ac
+    handler: src/EventHandlers.ts
+    events:
+    - event: FeeTokenCreated(address token, string name, string symbol, uint256 totalSupply, uint8 decimalPlaces, uint8 transferTax, address owner)
+    - event: StandardTokenCreated(address token, string name, string symbol, uint256 totalSupply, uint8 decimalPlaces, address owner)
+  - name: LockFactory
+    address:
+    - 0xbB94C147309e5af3Db8B8fdA7dC61a9C1a0e398f
+    handler: src/EventHandlers.ts
+    events:
+    - event: LockCreated(address indexed lock, address indexed token, address indexed owner, uint256 lockingAmount, uint256 lockTimeEnd, string projectImageUrl)
+unordered_multichain_mode: true
+preload_handlers: true
